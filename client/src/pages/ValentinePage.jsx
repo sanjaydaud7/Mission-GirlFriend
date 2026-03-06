@@ -270,7 +270,7 @@ export default function ValentinePage() {
   const handleYes = () => {
     setAnswer('yes');
     setShowConfetti(true);
-    setTimeout(() => navigate('/hero'), 4500);
+    setTimeout(() => navigate('/'), 4500);
   };
 
   const yesScale = 1 + noCount * 0.15;
