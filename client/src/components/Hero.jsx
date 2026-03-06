@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 // ─── Floating petal canvas ────────────────────────────────────────────────────
 function PetalCanvas() {
@@ -89,6 +89,37 @@ function useTypewriter(text, speed = 55, startDelay = 2800) {
   return { displayed, done };
 }
 
+// ─── Typing bubble — shows before typewriter starts ─────────────────────────
+function TypingBubble() {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 8, scale: 0.9 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      exit={{ opacity: 0, y: -8, scale: 0.9 }}
+      transition={{ duration: 0.35 }}
+      className="inline-flex items-center gap-2 px-5 py-3 rounded-full"
+      style={{
+        background: 'rgba(232,105,138,0.08)',
+        border: '1px solid rgba(232,105,138,0.22)',
+        backdropFilter: 'blur(10px)',
+      }}
+    >
+      {[0, 1, 2].map((i) => (
+        <motion.span
+          key={i}
+          className="block w-2 h-2 rounded-full"
+          style={{ background: '#e8698a' }}
+          animate={{ y: [0, -5, 0], opacity: [0.4, 1, 0.4] }}
+          transition={{ duration: 0.75, delay: i * 0.18, repeat: Infinity, ease: 'easeInOut' }}
+        />
+      ))}
+      <span className="ml-1 text-xs italic font-light tracking-wide" style={{ color: 'rgba(232,105,138,0.65)' }}>
+        writing something for you…
+      </span>
+    </motion.div>
+  );
+}
+
 // ─── Letter-by-letter name reveal ────────────────────────────────────────────
 function NameReveal({ name }) {
   return (
@@ -118,7 +149,13 @@ export default function Hero({ settings }) {
   const heroMessage =
     settings?.heroMessage || 'Every moment with you is a story worth telling...';
 
-  const { displayed, done } = useTypewriter(heroMessage, 52, 2600);
+  const { displayed, done } = useTypewriter(heroMessage, 52, 2700);
+  const [showTyping, setShowTyping] = useState(true);
+
+  useEffect(() => {
+    const t = setTimeout(() => setShowTyping(false), 2400);
+    return () => clearTimeout(t);
+  }, []);
 
   const scrollToStory = () =>
     document.getElementById('story')?.scrollIntoView({ behavior: 'smooth' });
@@ -147,13 +184,24 @@ export default function Hero({ settings }) {
         />
 
         {/* Typewriter message */}
-        <div className="min-h-[56px] mb-10">
-          <p className="font-playfair text-lg md:text-xl text-white italic leading-relaxed" style={{ textShadow: '0 2px 12px rgba(0,0,0,0.8)' }}>
-            {displayed}
-            {!done && (
-              <span className="text-blood animate-pulse font-light">|</span>
+        <div className="min-h-[56px] mb-10 flex items-center justify-center">
+          <AnimatePresence mode="wait">
+            {showTyping ? (
+              <TypingBubble key="typing" />
+            ) : (
+              <motion.p
+                key="text"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5 }}
+                className="font-playfair text-lg md:text-xl text-white italic leading-relaxed"
+                style={{ textShadow: '0 2px 12px rgba(0,0,0,0.8)' }}
+              >
+                {displayed}
+                {!done && <span className="text-blood animate-pulse font-light">|</span>}
+              </motion.p>
             )}
-          </p>
+          </AnimatePresence>
         </div>
 
         {/* CTA */}

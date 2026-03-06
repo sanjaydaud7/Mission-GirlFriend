@@ -14,11 +14,14 @@ export default function Navbar({ onLock }) {
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive]     = useState('hero');
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
   const navigate = useNavigate();
 
   useEffect(() => {
     const onScroll = () => {
       setScrolled(window.scrollY > 30);
+      const prog = Math.min(100, Math.round((window.scrollY / Math.max(1, document.body.scrollHeight - window.innerHeight)) * 100));
+      setScrollProgress(prog);
       for (const link of NAV_LINKS) {
         const el = document.getElementById(link.id);
         if (el) {
@@ -249,6 +252,31 @@ export default function Navbar({ onLock }) {
             </motion.div>
           )}
         </AnimatePresence>
+
+        {/* ── Scroll progress bar ── */}
+        <div className="absolute bottom-0 left-0 right-0 h-[2px]" style={{ background: 'rgba(255,255,255,0.05)', zIndex: 60 }}>
+          <div
+            className="h-full"
+            style={{
+              width: `${scrollProgress}%`,
+              background: 'linear-gradient(90deg,#e8698a,#a78bfa,#e8698a)',
+              transition: 'width 0.18s ease-out',
+            }}
+          />
+          {/* Milestone dots */}
+          {[{ pct: 2, label: 'Home' }, { pct: 22, label: 'Story' }, { pct: 48, label: 'Memories' }, { pct: 72, label: 'Letter' }, { pct: 90, label: 'Countdown' }].map((m) => (
+            <div
+              key={m.label}
+              title={m.label}
+              className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-2 h-2 rounded-full transition-all duration-300"
+              style={{
+                left: `${m.pct}%`,
+                background: scrollProgress >= m.pct ? '#e8698a' : 'rgba(255,255,255,0.18)',
+                boxShadow: scrollProgress >= m.pct ? '0 0 7px #e8698a' : 'none',
+              }}
+            />
+          ))}
+        </div>
       </motion.nav>
     </>
   );

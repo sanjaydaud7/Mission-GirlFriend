@@ -181,11 +181,84 @@ export default function Countdown() {
           </div>
         ) : (
           <motion.div
-            animate={{ scale: [1, 1.12, 1] }}
-            transition={{ duration: 2, repeat: Infinity }}
-            className="font-dancing text-5xl md:text-7xl text-gold text-gold-glow"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.9, type: 'spring' }}
+            className="text-center"
           >
-            ❤ This Moment ❤
+            {/* Confetti burst */}
+            <div className="relative flex items-center justify-center" style={{ height: 120, marginBottom: '1.5rem' }}>
+              {Array.from({ length: 24 }).map((_, i) => {
+                const angle = (i / 24) * 360;
+                const dist = 55 + (i % 3) * 20;
+                const colors = ['#f72585','#c9a84c','#7b8fff','#ff8c69','#e8698a','#fff'];
+                return (
+                  <motion.div
+                    key={i}
+                    className="absolute rounded-full"
+                    style={{ width: i % 3 === 0 ? 10 : 6, height: i % 3 === 0 ? 10 : 6, background: colors[i % colors.length] }}
+                    animate={{
+                      x: [0, Math.cos((angle * Math.PI) / 180) * dist],
+                      y: [0, Math.sin((angle * Math.PI) / 180) * dist],
+                      opacity: [0, 1, 1, 0],
+                      scale: [0, 1.3, 1, 0],
+                    }}
+                    transition={{ duration: 2.2, delay: (i % 8) * 0.12, repeat: Infinity, repeatDelay: 1.2, ease: 'easeOut' }}
+                  />
+                );
+              })}
+              <motion.div
+                animate={{ scale: [1, 1.2, 1], filter: ['drop-shadow(0 0 18px #f72585)', 'drop-shadow(0 0 48px #f72585)', 'drop-shadow(0 0 18px #f72585)'] }}
+                transition={{ duration: 1.6, repeat: Infinity }}
+                style={{ fontSize: '4rem', position: 'relative', zIndex: 10 }}
+              >
+                🎉
+              </motion.div>
+            </div>
+            <motion.h2
+              animate={{ color: ['#f72585', '#c9a84c', '#7b8fff', '#f72585'] }}
+              transition={{ duration: 3.5, repeat: Infinity }}
+              className="font-dancing text-5xl md:text-6xl mb-4"
+              style={{ textShadow: '0 0 40px rgba(247,37,133,0.6)' }}
+            >
+              We Made It! ✨
+            </motion.h2>
+            <p className="font-playfair text-lg italic mb-6" style={{ color: 'rgba(255,235,255,0.65)' }}>
+              The wait is over. This moment belongs to us.
+            </p>
+            <motion.div
+              animate={{ scale: [1, 1.1, 1] }}
+              transition={{ duration: 2.2, repeat: Infinity }}
+              className="font-dancing text-4xl text-gold text-gold-glow"
+            >
+              ❤ Together at Last ❤
+            </motion.div>
+          </motion.div>
+        )}
+
+        {/* Mystery teaser — only when counting down */}
+        {!passed && (
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 2, duration: 0.8 }}
+            className="mt-12 flex flex-col items-center gap-2"
+          >
+            <motion.div
+              animate={{ rotate: [-6, 6, -6], scale: [1, 1.1, 1] }}
+              transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+              style={{ fontSize: '2.2rem', filter: 'drop-shadow(0 0 14px rgba(232,105,138,0.75))' }}
+            >
+              🔒
+            </motion.div>
+            <motion.p
+              animate={{ opacity: [0.4, 0.8, 0.4] }}
+              transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
+              className="font-dancing text-xl italic text-center"
+              style={{ color: 'rgba(232,105,138,0.55)', maxWidth: 320 }}
+            >
+              Something special unlocks when this reaches zero…
+            </motion.p>
           </motion.div>
         )}
 
@@ -193,7 +266,7 @@ export default function Countdown() {
         <motion.p
           animate={{ opacity: [0.45, 1, 0.45] }}
           transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
-          className="font-dancing text-gray-500 text-2xl mt-14 italic"
+          className="font-dancing text-gray-500 text-2xl mt-10 italic"
         >
           "Every second counts..."
         </motion.p>
