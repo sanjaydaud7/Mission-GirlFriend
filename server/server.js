@@ -12,8 +12,19 @@ if (!fs.existsSync(dataDir)) fs.mkdirSync(dataDir, { recursive: true });
 
 const app = express();
 
+const allowedOrigins = [
+    'http://localhost:3000',
+    ...(process.env.CLIENT_URL ? [process.env.CLIENT_URL] : []),
+];
 app.use(cors({
-    origin: process.env.CLIENT_URL || 'http://localhost:3000',
+    origin: (origin, callback) => {
+        // Allow requests with no origin (mobile apps, Postman) and listed origins
+        if (!origin || allowedOrigins.includes(origin) || /\.netlify\.app$/.test(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error(`CORS: ${origin} not allowed`));
+        }
+    },
     credentials: true,
 }));
 app.use(express.json());
