@@ -1,0 +1,98 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Custom utilities ────────────────────────────────────────────── */
+
+@layer utilities {
+    .text-glow {
+        text-shadow: 0 0 8px #e8698a, 0 0 20px #e8698a, 0 0 40px rgba(232, 105, 138, 0.5);
+    }
+    .text-gold-glow {
+        text-shadow: 0 0 10px #a78bfa, 0 0 24px rgba(167, 139, 250, 0.7);
+    }
+    .box-glow {
+        box-shadow: 0 0 15px rgba(232, 105, 138, 0.45), 0 0 35px rgba(232, 105, 138, 0.15);
+    }
+    .gold-glow {
+        box-shadow: 0 0 15px rgba(167, 139, 250, 0.3), 0 0 35px rgba(109, 40, 217, 0.15);
+    }
+    .section-divider {
+        background: linear-gradient(to right, transparent, #e8698a, #a78bfa, #e8698a, transparent);
+        height: 1px;
+    }
+}
+
+
+/* ─── Font helpers (fallback if Tailwind utility doesn't apply) ──── */
+
+.font-dancing {
+    font-family: 'Great Vibes', cursive !important;
+}
+
+.font-playfair {
+    font-family: 'Playfair Display', serif !important;
+}
+
+.font-cinzel {
+    font-family: 'Cormorant Garamond', serif !important;
+}
+
+
+/* ─── Keyframes (extended animations not in config) ─────────────── */
+
+@keyframes twinkle {
+    0%,
+    100% {
+        opacity: 0.2;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.4);
+    }
+}
+
+@keyframes petalDrift {
+    0% {
+        transform: translateY(-10px) rotate(0deg) translateX(0);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.6;
+    }
+    90% {
+        opacity: 0.4;
+    }
+    100% {
+        transform: translateY(105vh) rotate(720deg) translateX(60px);
+        opacity: 0;
+    }
+}
+
+@keyframes candleFlicker {
+    0%,
+    100% {
+        transform: scaleX(1) scaleY(1) rotate(0deg);
+    }
+    20% {
+        transform: scaleX(1.1) scaleY(0.9) rotate(2deg);
+    }
+    40% {
+        transform: scaleX(0.9) scaleY(1.1) rotate(-1deg);
+    }
+    60% {
+        transform: scaleX(1.05) scaleY(0.95) rotate(1deg);
+    }
+    80% {
+        transform: scaleX(0.95) scaleY(1.05) rotate(-2deg);
+    }
+}
+
+.animate-twinkle {
+    animation: twinkle 3s ease-in-out infinite;
+}
+
+.animate-candle {
+    animation: candleFlicker 1.2s ease-in-out infinite;
+}
