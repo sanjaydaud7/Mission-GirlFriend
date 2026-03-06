@@ -1,6 +1,5 @@
 import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import api from '../utils/api';
 import bgImage from '../Images/upscaled_8k_image.jpg';
 
 // ─── Static star field (generated once so it never re-shuffles) ──────────────
@@ -69,27 +68,24 @@ export default function PasswordGate({ onUnlock }) {
     [unlocking]
   );
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (loading || unlocking) return;
     setLoading(true);
     setErrorMsg('');
-    try {
-      const res = await api.post('/api/auth/unlock', { password });
-      localStorage.setItem('mg_token', res.data.token);
+
+    const correct = process.env.REACT_APP_SITE_PASSWORD || 'iloveyou';
+    if (password === correct) {
+      // Store a simple flag so the app knows the user is unlocked
+      localStorage.setItem('mg_token', 'unlocked');
       setUnlocking(true);
       setTimeout(() => onUnlock(), 1600);
-    } catch (err) {
-      const msg =
-        err.response?.status === 401
-          ? "That's not the magic word... 💔"
-          : 'Something went wrong. Try again.';
-      setErrorMsg(msg);
+    } else {
+      setErrorMsg("That's not the magic word... 💔");
       setShaking(true);
       setTimeout(() => setShaking(false), 500);
-    } finally {
-      setLoading(false);
     }
+    setLoading(false);
   };
 
   return (
