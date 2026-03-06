@@ -4,17 +4,25 @@ import { useInView } from 'react-intersection-observer';
 import { gsap } from 'gsap';
 
 const letterParagraphs = [
-  "My dearest love,",
-  "I don't know exactly how to say this, but I'll try — because you deserve more than silence.",
-  "Missing you isn't just a feeling. It's a constant presence. It's the moment I want to tell you something funny and reach for my phone. It's the quiet at night that feels too loud without you.",
-  "I keep going back to all those tiny moments — the way you laugh at your own jokes just before the punchline, how you absentmindedly hum when you think no one can hear, the warmth that finds me every time you're near.",
-  "Distance has a way of reminding you what matters. And every day apart, I'm reminded — it's you. It has always been you.",
-  "I built this little world online so that when you're reading this, wherever you are, you know — you are loved. Deeply, genuinely, without condition.",
-  "We'll close this distance. Until then, I carry you with me in everything I do.",
-  "Yours, always and completely.",
-  "— me 💕",
-];
+  "Meri pyaari jaan,",
 
+  "Kabhi kabhi shayad main cheezon ko zyada soch leta hoon… overthink kar leta hoon. Kabhi zyada care kar deta hoon, aur kabhi us care ka tareeka thoda rude lag jata hoga.",
+
+  "Par ek baat sach hai — jitna main express nahi kar pata, usse kahin zyada main feel karta hoon. Tum meri life ka woh hissa ban chuki ho jiske bina sab kuch thoda adhoora sa lagta hai.",
+
+  "2020 ka woh din church mein aaj bhi yaad hai. Tumhari simplicity, tumhara calm sa presence… pata nahi kyun us moment mein laga ki kuch special hai.",
+
+  "Rudrapur ka woh time, saath bitaye hue woh simple moments… honestly unme koi bada plan nahi tha, par phir bhi woh mere liye bahut special ban gaye.",
+
+  "Kabhi kabhi main galat tareeke se react kar deta hoon, kabhi unnecessarily overprotective ho jata hoon. Shayad isliye kyunki tum mere liye bahut important ho.",
+
+  "Main perfect nahi hoon… par ek cheez main hamesha sach rakhunga — mera pyaar tumhare liye. Woh kabhi fake nahi tha, kabhi kam nahi hoga.",
+
+  "Bas itna hi kehna tha… jo bhi ho, jitni bhi misunderstandings aayein, mere dil mein tumhari jagah hamesha special rahegi.",
+
+  "Hamesha tumhara.",
+  "— me ❤️",
+];
 /* ─── Falling rose petals canvas ─────────────────────────────────────────── */
 function PetalsCanvas() {
   const canvasRef = useRef(null);

@@ -100,16 +100,20 @@ export default function Countdown() {
   const [targetDate, setTargetDate] = useState(null);
   const [passed, setPassed] = useState(false);
 
-  // Fetch countdown date from settings
+  // Fetch countdown date from settings; fall back to the hardcoded date
   useEffect(() => {
     api
       .get('/api/settings')
       .then((res) => {
         if (res.data.countdownDate) {
           setTargetDate(new Date(res.data.countdownDate));
+        } else {
+          setTargetDate(new Date('2026-04-12T00:00:00.000Z'));
         }
       })
-      .catch(() => {});
+      .catch(() => {
+        setTargetDate(new Date('2026-04-12T00:00:00.000Z'));
+      });
   }, []);
 
   // Tick every second

@@ -1,62 +1,86 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { motion } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
+import React, { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
+import { useInView } from "react-intersection-observer";
 
-import img1 from '../Images/WhatsApp Image 2026-03-06 at 6.33.30 PM (9).jpeg';
-import img2 from '../Images/IMG-20240717-WA0001.jpg';
-import img3 from '../Images/WhatsApp Image 2026-03-06 at 6.33.30 PM (14).jpeg';
-import img4 from '../Images/WhatsApp Image 2026-03-06 at 6.33.30 PM.jpeg';
+import img1 from "../Images/WhatsApp Image 2026-03-06 at 6.33.30 PM (9).jpeg";
+import img2 from "../Images/IMG-20240717-WA0001.jpg";
+import img3 from "../Images/WhatsApp Image 2026-03-06 at 6.33.30 PM (14).jpeg";
+import img4 from "../Images/WhatsApp Image 2026-03-06 at 6.33.30 PM.jpeg";
 
 const STORY_EVENTS = [
   {
-    id: 1, emoji: '✨', date: 'The Beginning', title: 'The Day We Met',
-    description: "Some stories start with a crash, others with a smile. Ours started with a moment I knew I'd never forget. You walked in and the whole room shifted.",
-    secret: "I knew right then — the way you smiled without knowing I was watching. That smile changed everything for me.",
-    secretEmoji: '🫶',
-    image: img1,
-    accent: '#e8698a',
-    bg: 'linear-gradient(145deg,#1e0416 0%,#2d0520 55%,#160412 100%)',
-    glow: 'rgba(232,105,138,0.22)',
-    tag: '#e8698a',
-  },
-  {
-    id: 2, emoji: '🌹', date: 'A Month Later', title: 'Our First Date',
-    description: 'Nervous hands, warm laughter, and the slow realization that I could spend forever just listening to you talk about everything and nothing at all.',
-    secret: "I was so nervous I could barely eat. But the moment you laughed, I forgot I was nervous at all. I just wanted that laugh to never stop.",
-    secretEmoji: '💓',
+    id: 1,
+    emoji: "✨",
+    date: "The Beginning",
+    title: "The Day We Met",
+    description:
+      "Some stories begin quietly. Mine began in 2020, the first moment my eyes noticed you in church. There was something in your simplicity that felt pure and peaceful. In that moment, the noise of the world faded, and a new chapter of my life quietly started.",
+
+    secret:
+      "That day in church, you had no idea someone was watching with a heart already changing. Your simplicity, your calm presence, and the way you carried yourself stayed in my mind long after the moment passed. From that day, something inside me knew you would become very special in my life.",
+    secretEmoji: "🫶",
     image: img2,
-    accent: '#c9a84c',
-    bg: 'linear-gradient(145deg,#120808 0%,#2a1005 55%,#0e0605 100%)',
-    glow: 'rgba(201,168,76,0.2)',
-    tag: '#c9a84c',
+    accent: "#e8698a",
+    bg: "linear-gradient(145deg,#1e0416 0%,#2d0520 55%,#160412 100%)",
+    glow: "rgba(232,105,138,0.22)",
+    tag: "#e8698a",
   },
   {
-    id: 3, emoji: '🌍', date: 'Growing Together', title: 'Adventures Begin',
-    description: 'Road trips with no plan, late nights with no end, and inside jokes no one else would ever understand. Just us, against the whole wide world.',
-    secret: "Every adventure felt braver with you beside me. I never wanted any of them to end — partly for the place, mostly for you.",
-    secretEmoji: '🌙',
+    id: 2,
+    emoji: "🌹",
+    date: "A Month Later",
+    title: "Our First Date",
+    description:
+      "A trip to Rudrapur, a quiet day that turned unforgettable. Every moment felt light, every conversation flowed so naturally. Time moved fast, but the memories stayed. It was the kind of day that made everything feel simple and beautiful.",
+
+    secret:
+      "That day in Rudrapur felt different. The time spent together was so pure and effortless that I didn't want the day to end. In the middle of ordinary moments, something special was quietly growing inside my heart.",
+    secretEmoji: "💓",
+    image: img1,
+    accent: "#c9a84c",
+    bg: "linear-gradient(145deg,#120808 0%,#2a1005 55%,#0e0605 100%)",
+    glow: "rgba(201,168,76,0.2)",
+    tag: "#c9a84c",
+  },
+  {
+    id: 3,
+    emoji: "🌍",
+date: "Growing Together",
+title: "Adventures Begin",
+description:
+  "Days started filling with small adventures and simple moments that meant so much. Long conversations, shared laughter, and memories quietly forming one after another. Every moment together felt natural, like life was slowly becoming more beautiful.",
+
+secret:
+  "The best part of every adventure was never the place, but the time spent together. In those moments, I realized how special your presence had become in my life.",
+    secretEmoji: "🌙",
     image: img3,
-    accent: '#7b8fff',
-    bg: 'linear-gradient(145deg,#060820 0%,#0c1035 55%,#060810 100%)',
-    glow: 'rgba(123,143,255,0.22)',
-    tag: '#7b8fff',
+    accent: "#7b8fff",
+    bg: "linear-gradient(145deg,#060820 0%,#0c1035 55%,#060810 100%)",
+    glow: "rgba(123,143,255,0.22)",
+    tag: "#7b8fff",
   },
   {
-    id: 4, emoji: '💫', date: 'Every Single Day', title: 'The Ordinary Magic',
-    description: 'The ordinary moments became the most extraordinary ones. Coffee in the morning, your laugh in the afternoon, and you beside me at night. Perfect.',
-    secret: "The ordinary days with you became the best days of my life. I wouldn't trade a single quiet moment. Not one.",
-    secretEmoji: '✨',
+    id: 4,
+    emoji: "💫",
+date: "Every Single Day",
+title: "The Ordinary Magic",
+description:
+  "Little moments started becoming the most meaningful ones. Simple conversations, shared smiles, and the comfort of just being together. What once felt ordinary slowly became the most beautiful part of every day.",
+
+secret:
+  "The best memories were never the big moments, but the quiet time spent together. Every day with you brought a kind of peace and happiness I never knew I needed.",
+    secretEmoji: "✨",
     image: img4,
-    accent: '#ff8c69',
-    bg: 'linear-gradient(145deg,#180a02 0%,#2a1005 55%,#120600 100%)',
-    glow: 'rgba(255,140,105,0.2)',
-    tag: '#ff8c69',
+    accent: "#ff8c69",
+    bg: "linear-gradient(145deg,#180a02 0%,#2a1005 55%,#120600 100%)",
+    glow: "rgba(255,140,105,0.2)",
+    tag: "#ff8c69",
   },
 ];
 
 /* ─── Typewriter hook ─── */
 function useTypewriter(text, speed = 22, active = false) {
-  const [displayed, setDisplayed] = useState('');
+  const [displayed, setDisplayed] = useState("");
   const started = useRef(false);
   useEffect(() => {
     if (!active || started.current) return;
@@ -80,100 +104,229 @@ function TimelineCard({ event, index }) {
   const [flipped, setFlipped] = useState(false);
 
   return (
-    <div ref={ref} className={`flex items-center gap-6 md:gap-10 ${isLeft ? 'flex-row' : 'flex-row-reverse'} mb-20 relative`}>
-
+    <div
+      ref={ref}
+      className={`flex items-center gap-6 md:gap-10 ${isLeft ? "flex-row" : "flex-row-reverse"} mb-20 relative`}
+    >
       {/* ── Card with 3-D flip ── */}
       <motion.div
         initial={{ opacity: 0, x: isLeft ? -70 : 70, y: 20 }}
         animate={inView ? { opacity: 1, x: 0, y: 0 } : {}}
         transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
         className="flex-1 max-w-sm cursor-pointer select-none"
-        style={{ perspective: '1100px', filter: inView ? `drop-shadow(0 8px 40px ${event.glow})` : 'none' }}
-        onClick={() => setFlipped(f => !f)}
+        style={{
+          perspective: "1100px",
+          filter: inView ? `drop-shadow(0 8px 40px ${event.glow})` : "none",
+        }}
+        onClick={() => setFlipped((f) => !f)}
       >
         <motion.div
           animate={{ rotateY: flipped ? 180 : 0 }}
           transition={{ duration: 0.65, ease: [0.25, 0.46, 0.45, 0.94] }}
-          style={{ transformStyle: 'preserve-3d', position: 'relative' }}
+          style={{ transformStyle: "preserve-3d", position: "relative" }}
         >
           {/* ─── FRONT ─── */}
-          <div style={{
-            backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden',
-            borderRadius: '1rem', overflow: 'hidden',
-            background: event.bg,
-            border: `1px solid ${event.accent}38`,
-            boxShadow: `0 0 0 1px ${event.accent}12, inset 0 1px 0 rgba(255,255,255,0.07)`,
-          }}>
-            <div style={{ height: 3, background: `linear-gradient(90deg, transparent, ${event.accent}, transparent)` }} />
+          <div
+            style={{
+              backfaceVisibility: "hidden",
+              WebkitBackfaceVisibility: "hidden",
+              borderRadius: "1rem",
+              overflow: "hidden",
+              background: event.bg,
+              border: `1px solid ${event.accent}38`,
+              boxShadow: `0 0 0 1px ${event.accent}12, inset 0 1px 0 rgba(255,255,255,0.07)`,
+            }}
+          >
+            <div
+              style={{
+                height: 3,
+                background: `linear-gradient(90deg, transparent, ${event.accent}, transparent)`,
+              }}
+            />
             <div className="relative overflow-hidden" style={{ height: 200 }}>
               <img
-                src={event.image} alt={event.title}
+                src={event.image}
+                alt={event.title}
                 onLoad={() => setImgLoaded(true)}
                 className="w-full h-full object-cover"
-                style={{ opacity: imgLoaded ? 1 : 0, transition: 'opacity 0.5s ease' }}
+                style={{
+                  opacity: imgLoaded ? 1 : 0,
+                  transition: "opacity 0.5s ease",
+                }}
               />
-              <div className="absolute inset-0" style={{ background: `linear-gradient(to bottom, transparent 40%, ${event.bg.match(/#[0-9a-f]+/i)?.[0] ?? '#0e0405'} 100%)` }} />
+              <div
+                className="absolute inset-0"
+                style={{
+                  background: `linear-gradient(to bottom, transparent 40%, ${event.bg.match(/#[0-9a-f]+/i)?.[0] ?? "#0e0405"} 100%)`,
+                }}
+              />
               <motion.div
                 initial={{ scale: 0, rotate: -20 }}
                 animate={inView ? { scale: 1, rotate: 0 } : {}}
-                transition={{ delay: 0.35, type: 'spring', stiffness: 260 }}
+                transition={{ delay: 0.35, type: "spring", stiffness: 260 }}
                 className="absolute top-3 right-3 w-11 h-11 rounded-full flex items-center justify-center text-xl"
-                style={{ background: `radial-gradient(circle, ${event.accent}30, rgba(0,0,0,0.6))`, border: `1.5px solid ${event.accent}60`, backdropFilter: 'blur(6px)', boxShadow: `0 0 14px ${event.accent}80` }}
+                style={{
+                  background: `radial-gradient(circle, ${event.accent}30, rgba(0,0,0,0.6))`,
+                  border: `1.5px solid ${event.accent}60`,
+                  backdropFilter: "blur(6px)",
+                  boxShadow: `0 0 14px ${event.accent}80`,
+                }}
               >
                 {event.emoji}
               </motion.div>
-              <div className="absolute bottom-3 left-3 px-3 py-1 rounded-full"
-                style={{ background: `${event.accent}22`, border: `1px solid ${event.accent}50`, color: event.accent, backdropFilter: 'blur(8px)', fontSize: '0.62rem', letterSpacing: '0.18em' }}>
+              <div
+                className="absolute bottom-3 left-3 px-3 py-1 rounded-full"
+                style={{
+                  background: `${event.accent}22`,
+                  border: `1px solid ${event.accent}50`,
+                  color: event.accent,
+                  backdropFilter: "blur(8px)",
+                  fontSize: "0.62rem",
+                  letterSpacing: "0.18em",
+                }}
+              >
                 {event.date}
               </div>
             </div>
             <div className="p-6 pt-5">
-              <h3 className="text-xl font-semibold mb-3 tracking-wide"
-                style={{ fontFamily: 'Georgia, serif', color: '#fff', textShadow: `0 0 16px ${event.accent}55` }}>
+              <h3
+                className="text-xl font-semibold mb-3 tracking-wide"
+                style={{
+                  fontFamily: "Georgia, serif",
+                  color: "#fff",
+                  textShadow: `0 0 16px ${event.accent}55`,
+                }}
+              >
                 {event.title}
               </h3>
-              <p className="text-sm leading-relaxed"
-                style={{ color: 'rgba(255,235,235,0.62)', minHeight: '3.6em', fontFamily: 'Palatino, serif' }}>
-                {typedDesc || '\u00A0'}
+              <p
+                className="text-sm leading-relaxed"
+                style={{
+                  color: "rgba(255,235,235,0.62)",
+                  minHeight: "3.6em",
+                  fontFamily: "Palatino, serif",
+                }}
+              >
+                {typedDesc || "\u00A0"}
               </p>
-              <div className="mt-5 h-px" style={{ background: `linear-gradient(to right, ${event.accent}70, transparent)` }} />
+              <div
+                className="mt-5 h-px"
+                style={{
+                  background: `linear-gradient(to right, ${event.accent}70, transparent)`,
+                }}
+              />
             </div>
             {/* Flip hint */}
             <div className="absolute bottom-3 right-4 flex items-center gap-1">
-              <span style={{ color: `${event.accent}75`, fontSize: '0.58rem', letterSpacing: '0.08em', fontStyle: 'italic' }}>tap for secret</span>
-              <span style={{ fontSize: '0.75rem' }}>🔮</span>
+              <span
+                style={{
+                  color: `${event.accent}75`,
+                  fontSize: "0.58rem",
+                  letterSpacing: "0.08em",
+                  fontStyle: "italic",
+                }}
+              >
+                tap for secret
+              </span>
+              <span style={{ fontSize: "0.75rem" }}>🔮</span>
             </div>
-            <div className="absolute bottom-0 right-0 w-28 h-28 pointer-events-none rounded-br-2xl"
-              style={{ background: `radial-gradient(circle at bottom right, ${event.accent}14 0%, transparent 70%)` }} />
+            <div
+              className="absolute bottom-0 right-0 w-28 h-28 pointer-events-none rounded-br-2xl"
+              style={{
+                background: `radial-gradient(circle at bottom right, ${event.accent}14 0%, transparent 70%)`,
+              }}
+            />
           </div>
 
           {/* ─── BACK ─── */}
-          <div style={{
-            backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden',
-            transform: 'rotateY(180deg)',
-            position: 'absolute', inset: 0,
-            borderRadius: '1rem', overflow: 'hidden',
-            background: `linear-gradient(145deg,#0d0115 0%,#130520 55%,#0a0110 100%)`,
-            border: `1px solid ${event.accent}55`,
-            boxShadow: `0 0 40px ${event.glow}, inset 0 0 30px ${event.accent}08`,
-            display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '2rem',
-          }}>
-            <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 3, background: `linear-gradient(90deg, transparent, ${event.accent}, transparent)` }} />
+          <div
+            style={{
+              backfaceVisibility: "hidden",
+              WebkitBackfaceVisibility: "hidden",
+              transform: "rotateY(180deg)",
+              position: "absolute",
+              inset: 0,
+              borderRadius: "1rem",
+              overflow: "hidden",
+              background: `linear-gradient(145deg,#0d0115 0%,#130520 55%,#0a0110 100%)`,
+              border: `1px solid ${event.accent}55`,
+              boxShadow: `0 0 40px ${event.glow}, inset 0 0 30px ${event.accent}08`,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              padding: "2rem",
+            }}
+          >
+            <div
+              style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                right: 0,
+                height: 3,
+                background: `linear-gradient(90deg, transparent, ${event.accent}, transparent)`,
+              }}
+            />
             <motion.div
-              animate={{ scale: [1, 1.15, 1], filter: [`drop-shadow(0 0 8px ${event.accent}50)`, `drop-shadow(0 0 22px ${event.accent})`, `drop-shadow(0 0 8px ${event.accent}50)`] }}
-              transition={{ duration: 2.2, repeat: Infinity, ease: 'easeInOut' }}
-              style={{ fontSize: '3rem', marginBottom: '1.25rem' }}
+              animate={{
+                scale: [1, 1.15, 1],
+                filter: [
+                  `drop-shadow(0 0 8px ${event.accent}50)`,
+                  `drop-shadow(0 0 22px ${event.accent})`,
+                  `drop-shadow(0 0 8px ${event.accent}50)`,
+                ],
+              }}
+              transition={{
+                duration: 2.2,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+              style={{ fontSize: "3rem", marginBottom: "1.25rem" }}
             >
               {event.secretEmoji}
             </motion.div>
-            <p style={{ fontFamily: 'Georgia, serif', fontStyle: 'italic', color: 'rgba(255,235,245,0.88)', lineHeight: 1.8, textAlign: 'center', fontSize: '0.92rem' }}>
+            <p
+              style={{
+                fontFamily: "Georgia, serif",
+                fontStyle: "italic",
+                color: "rgba(255,235,245,0.88)",
+                lineHeight: 1.8,
+                textAlign: "center",
+                fontSize: "0.92rem",
+              }}
+            >
               "{event.secret}"
             </p>
-            <div style={{ width: '55%', height: 1, background: `linear-gradient(to right, transparent, ${event.accent}, transparent)`, marginTop: '1.5rem' }} />
-            <p style={{ marginTop: '0.85rem', fontSize: '0.58rem', letterSpacing: '0.24em', textTransform: 'uppercase', color: `${event.accent}75` }}>
+            <div
+              style={{
+                width: "55%",
+                height: 1,
+                background: `linear-gradient(to right, transparent, ${event.accent}, transparent)`,
+                marginTop: "1.5rem",
+              }}
+            />
+            <p
+              style={{
+                marginTop: "0.85rem",
+                fontSize: "0.58rem",
+                letterSpacing: "0.24em",
+                textTransform: "uppercase",
+                color: `${event.accent}75`,
+              }}
+            >
               tap to flip back
             </p>
-            <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 3, background: `linear-gradient(90deg, transparent, ${event.accent}, transparent)` }} />
+            <div
+              style={{
+                position: "absolute",
+                bottom: 0,
+                left: 0,
+                right: 0,
+                height: 3,
+                background: `linear-gradient(90deg, transparent, ${event.accent}, transparent)`,
+              }}
+            />
           </div>
         </motion.div>
       </motion.div>
@@ -182,9 +335,12 @@ function TimelineCard({ event, index }) {
       <motion.div
         initial={{ scale: 0, opacity: 0 }}
         animate={inView ? { scale: 1, opacity: 1 } : {}}
-        transition={{ delay: 0.3, type: 'spring', stiffness: 300 }}
+        transition={{ delay: 0.3, type: "spring", stiffness: 300 }}
         className="hidden md:flex flex-shrink-0 w-6 h-6 rounded-full items-center justify-center z-10"
-        style={{ background: event.accent, boxShadow: `0 0 16px ${event.accent}, 0 0 38px ${event.glow}` }}
+        style={{
+          background: event.accent,
+          boxShadow: `0 0 16px ${event.accent}, 0 0 38px ${event.glow}`,
+        }}
       >
         <div className="w-2 h-2 rounded-full bg-white" />
       </motion.div>
@@ -206,7 +362,7 @@ export default function OurStory() {
           viewport={{ once: true }}
           transition={{ delay: 0.2 }}
           className="text-xs uppercase tracking-[0.45em] mb-4"
-          style={{ color: '#c9a84c', fontFamily: 'Georgia, serif' }}
+          style={{ color: "#c9a84c", fontFamily: "Georgia, serif" }}
         >
           chapter by chapter
         </motion.p>
@@ -218,13 +374,14 @@ export default function OurStory() {
           className="mb-6"
           style={{
             fontFamily: 'Georgia, "Times New Roman", serif',
-            fontStyle: 'italic',
-            fontSize: 'clamp(2.5rem, 7vw, 4rem)',
-            background: 'linear-gradient(135deg, #fff 0%, #fce7ff 40%, #e8698a 100%)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            backgroundClip: 'text',
-            filter: 'drop-shadow(0 2px 20px rgba(232,105,138,0.35))',
+            fontStyle: "italic",
+            fontSize: "clamp(2.5rem, 7vw, 4rem)",
+            background:
+              "linear-gradient(135deg, #fff 0%, #fce7ff 40%, #e8698a 100%)",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            backgroundClip: "text",
+            filter: "drop-shadow(0 2px 20px rgba(232,105,138,0.35))",
           }}
         >
           Our Story
@@ -236,22 +393,30 @@ export default function OurStory() {
             viewport={{ once: true }}
             transition={{ delay: 0.6, duration: 0.7 }}
             className="h-px w-24"
-            style={{ background: 'linear-gradient(to right, transparent, #e8698a)', transformOrigin: 'right' }}
+            style={{
+              background: "linear-gradient(to right, transparent, #e8698a)",
+              transformOrigin: "right",
+            }}
           />
           <motion.span
             initial={{ scale: 0, opacity: 0 }}
             whileInView={{ scale: 1, opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.75, type: 'spring' }}
-            style={{ color: '#e8698a', fontSize: '0.9rem' }}
-          >✦</motion.span>
+            transition={{ delay: 0.75, type: "spring" }}
+            style={{ color: "#e8698a", fontSize: "0.9rem" }}
+          >
+            ✦
+          </motion.span>
           <motion.div
             initial={{ scaleX: 0 }}
             whileInView={{ scaleX: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.6, duration: 0.7 }}
             className="h-px w-24"
-            style={{ background: 'linear-gradient(to left, transparent, #e8698a)', transformOrigin: 'left' }}
+            style={{
+              background: "linear-gradient(to left, transparent, #e8698a)",
+              transformOrigin: "left",
+            }}
           />
         </div>
       </div>
@@ -261,7 +426,10 @@ export default function OurStory() {
         {/* Vertical line */}
         <div
           className="absolute left-1/2 top-0 bottom-0 w-px -translate-x-1/2 hidden md:block"
-          style={{ background: 'linear-gradient(to bottom, transparent, #e8698a 10%, #c9a84c 35%, #7b8fff 65%, #ff8c69 90%, transparent)' }}
+          style={{
+            background:
+              "linear-gradient(to bottom, transparent, #e8698a 10%, #c9a84c 35%, #7b8fff 65%, #ff8c69 90%, transparent)",
+          }}
         />
         {STORY_EVENTS.map((event, i) => (
           <TimelineCard key={event.id} event={event} index={i} />
